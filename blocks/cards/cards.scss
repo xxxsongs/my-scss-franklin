@@ -7,7 +7,6 @@
 		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		grid-gap: 16px;
 		>li {
-			border: 1px solid var(--highlight-background-color);
 			background-color: var(--background-color);
 			img {
 				width: 100%;

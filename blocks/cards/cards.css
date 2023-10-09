@@ -7,7 +7,6 @@
   grid-gap: 16px;
 }
 .cards > ul > li {
-  border: 1px solid var(--highlight-background-color);
   background-color: var(--background-color);
 }
 .cards > ul > li img {

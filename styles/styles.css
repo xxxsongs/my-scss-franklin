@@ -14,6 +14,32 @@
 /* buttons */
 /* section metadata */
 :root {
+    /* colors */
+
+  --clr-blue: #003da6;
+  --clr-light-blue: #3d94ce;
+  --clr-lighter-blue: #a6dff6;
+  --clr-lightest-blue: #EDF9FD;
+  --clr-slate-blue: #3E7BA4;
+  --clr-teal: #1C8172;
+  --clr-light-teal: #2CA597;
+  --clr-lightest-teal: #EAF6F5;
+  --clr-purple: #6A4182;
+  --clr-light-purple: #E1D9E6;
+  --clr-coral: #E16651;
+  --clr-orange: #F38926;
+  --clr-lightest-orange: #FEF3E9;
+  --clr-green: #6ea101;
+  --clr-lightest-green:  #F1F6E6;
+  --clr-white: #fff;
+  --clr-black: #161b1e;
+  --clr-near-black: #353C3E;
+  --clr-med-gray: #676E71;
+  --clr-med-light-gray: #8F9699;
+  --clr-light-gray: #D2DADD;
+  --clr-lighter-gray: #F0F3F4;
+  --clr-midnight-blue: #002858;
+  --clr-off-white: #F0F3F4;
   --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: #fff;
@@ -211,9 +237,6 @@ main img {
   width: auto;
   height: auto;
 }
-main .section {
-  padding: 64px 16px;
-}
 main .section.highlight {
   background-color: var(--highlight-background-color);
 }
@@ -325,10 +348,5 @@ button.secondary {
   .section > div {
     max-width: 1200px;
     margin: auto;
-  }
-}
-@media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
   }
 }

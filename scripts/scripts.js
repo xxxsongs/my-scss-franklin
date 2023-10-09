@@ -16,19 +16,28 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 window.hlx.RUM_GENERATION = 'project-1'; // add your RUM generation information here
 
+
 /**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
-  const picture = main.querySelector('picture');
-  // eslint-disable-next-line no-bitwise
-  if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
-    const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
-    main.prepend(section);
+  if (!h1) {
+    return;
   }
+
+  const section = h1.closest('div');
+  const picture = section.querySelector('picture');
+  if (!picture) {
+    return;
+  }
+
+  const elems = [...section.children];
+  const filtered = elems.filter((el) => !el.classList.contains('section-metadata'));
+  const block = buildBlock('hero', { elems: filtered });
+  section.append(block);
+  main.prepend(section);
 }
 
 /**
@@ -90,21 +99,46 @@ export function addFavIcon(href) {
 }
 
 /**
+ * Wraps images followed by links within a matching <a> tag.
+ * @param {Element} container The container element
+ */
+export function wrapImgsInLinks(container) {
+  const pictures = container.querySelectorAll('p picture');
+  pictures.forEach((pic) => {
+    const parent = pic.parentNode;
+    if (!parent.nextElementSibling) {
+      // eslint-disable-next-line no-console
+      console.warn('no next element');
+      return;
+    }
+    const link = parent.nextElementSibling.querySelector('a');
+    if (link && link.textContent.includes(link.getAttribute('href'))) {
+      link.parentElement.remove();
+      link.innerHTML = pic.outerHTML;
+      pic.replaceWith(link);
+    }
+  });
+}
+
+
+/**
  * Loads everything that doesn't need to be delayed.
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
-  loadHeader(doc.querySelector('header'));
-  loadFooter(doc.querySelector('footer'));
   await loadBlocks(main);
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
+  loadHeader(doc.querySelector('header'));
+  loadFooter(doc.querySelector('footer'));
+
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   addFavIcon(`${window.hlx.codeBasePath}/styles/favicon.svg`);
+  wrapImgsInLinks(main);
   sampleRUM('lazy');
   sampleRUM.observe(main.querySelectorAll('div[data-block-name]'));
   sampleRUM.observe(main.querySelectorAll('picture > img'));

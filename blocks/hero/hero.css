@@ -1,33 +1,163 @@
 /* block specific CSS goes here */
 main .hero-container {
-  padding: 0;
+  --hero-bg-color: var(--clr-blue);
+
+  padding-inline: 0;
+  padding-block-end: 0;
 }
-main .hero-container > div {
-  max-width: unset;
+
+main .hero-container + .section {
+  padding-block-start: var(--default-content-gap);
 }
+
+.section.hero-container {
+  background-color: var(--clr-blue)
+}
+
+.two-columns .section.hero-container {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+.section.hero-container.hero-container.alternate-hero {
+  background-color: var(--clr-coral)
+}
+
+main .hero-container.alternate-hero {
+  --hero-bg-color: var(--clr-coral);
+}
+
+main .hero-container ul li {
+  list-style-type: none;
+  color: var(--clr-white);
+  font-family: var(--heading-font-family);
+}
+
+main .hero-container select {
+  height: 40px;
+  margin: 0 var(--default-content-gap) 24px;
+  padding: 0 8px;
+  width: 100%;
+  border: 1px solid var(--clr-light-blue);
+  border-radius: 3px;
+  font-size: var(--body-font-size-s);
+  display: block;
+  appearance: none;
+}
+
+main .hero-container .hero-select-wrapper {
+  width: 70%;
+  position: relative;
+}
+
+main .hero-container .hero-select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: -36px;
+  width: 9px;
+  height: 7px;
+  margin-top: -3px;
+  background: url("/icons/down-arrow.png") no-repeat;
+  background-size: contain; 
+}
+
+main .hero-container h5 {
+  color: var(--clr-white);
+  margin: 0 var(--default-content-gap) 4px;
+}
+
+main .hero-container .default-content-wrapper {
+  display: none;
+}
+
 main .hero {
   position: relative;
-  padding: 32px;
+  padding: 0;
   min-height: 300px;
+  display: flex;
+  max-width: var(--max-content-width);
+  margin: auto;
 }
-main .hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: white;
+
+main .hero .hero-content-container {
+  min-height: 384px;
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
 }
-main .hero picture {
+
+main .hero .hero-image-container {
+  flex: 1;
+  display: none;
+}
+
+main .hero .hero-content-container::after,
+main .hero .hero-content-container::before {
+  content: '';
+  display: block;
   position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+  opacity: .4;
 }
+
+main .hero .hero-content-container::after {
+  width: 390px;
+  height: 390px;
+  right: -90px;
+  top: -210px;
+  border-radius: 195px;
+}
+
+main .hero .hero-content-container::before {
+  width: 220px;
+  height: 220px;
+  left: -110px;
+  bottom: 40px;
+  border-radius: 110px;
+}
+
+main .hero h1 {
+  color: var(--clr-white);
+  margin-right: auto;
+  padding: var(--default-content-gap) var(--default-content-gap) 0;
+  z-index: 1;
+}
+
+main .hero h2 {
+  color: var(--clr-white);
+  padding: 0 var(--default-content-gap) var(--default-content-gap) var(--default-content-gap);
+  z-index: 1;
+}
+
+main .hero picture {
+  z-index: -1;
+}
+
 main .hero img {
   object-fit: cover;
   width: 100%;
   height: 100%;
+}
+
+main .hero .button {
+  background-color: var(--clr-white);
+  color: var(--link-color);
+  margin: auto var(--default-content-gap) var(--default-content-gap);
+  font-size: var(--body-font-size-l);
+  z-index: 2;
+  transition: .3s;
+  position: relative;
+}
+
+
+@media (min-width: 56.25em) {
+  main .hero .hero-image-container {
+    display: block;
+  }
 }
